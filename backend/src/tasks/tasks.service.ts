@@ -10,10 +10,11 @@ export class TasksService {
   create(createTaskDto: CreateTaskDto) {
     const task = new Task();
     task.id = uuidv4();
-    const { propertyName, description, images } = createTaskDto;
+    const { propertyName, description, images, cleaningDate } = createTaskDto;
     task.description = description;
     task.images = images;
     task.propertyName = propertyName;
+    task.cleaningDate = cleaningDate;
     return this.tasks.push(task);
   }
 

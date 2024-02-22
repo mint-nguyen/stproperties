@@ -39,7 +39,7 @@ export default function AddTask() {
 		axios
 			.post("http://localhost:3000/tasks", {
 				propertyName: propertyName,
-				cleaningDate: cleaningDate,
+				cleaningDate: new Date(cleaningDate),
 				description: description,
 				images: images,
 			})
