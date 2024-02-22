@@ -88,6 +88,7 @@ export default function AddTask() {
 							onChange={(curr) => setCleaningDate(curr.target.value)}
 							onBlur={onBlurCleaningDate}
 							placeholder="Cleaning date (YYYY-MM-DD)"
+							type="datetime-local"
 						/>
 						<FormLabel>Images</FormLabel>
 						<FormHelperText>

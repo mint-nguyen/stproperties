@@ -1,13 +1,9 @@
 "use client";
 import {
-	Flex,
 	Card,
 	CardBody,
 	Button,
 	Text,
-	ButtonGroup,
-	CardFooter,
-	Divider,
 	Heading,
 	Stack,
 	Image,
@@ -17,6 +13,8 @@ import {
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 type Task = {
 	id: string;
@@ -53,29 +51,46 @@ export default function Home() {
 	}
 
 	return (
-		<Grid templateColumns="repeat(5, 1fr)" gap={6}>
-			{tasks.map((task: Task) => {
-				return (
-					<GridItem key={task.description}>
-						<Card maxW="sm">
-							<CardBody>
-								<Image
-									src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-									alt="Green double couch with wooden legs"
-									borderRadius="lg"
-								/>
-								<Stack mt="6" spacing="3">
-									<Heading size="md">{task.propertyName}</Heading>
-									<Text>{task.description}</Text>
-									<Text color="blue.600" fontSize="2xl">
-										{new Date(task.cleaningDate).toLocaleDateString("en-US")}
-									</Text>
-								</Stack>
-							</CardBody>
-						</Card>
-					</GridItem>
-				);
-			})}
-		</Grid>
+		<div className="p-10">
+			<Button
+				color="teal"
+				onClick={() => router.push("/add-task")}
+				marginBottom={5}>
+				Create task
+			</Button>
+
+			<Grid templateColumns="repeat(3, 1fr)" gap={6}>
+				{tasks.map((task: Task) => {
+					return (
+						<GridItem key={task.description}>
+							<Card maxW="sm">
+								<CardBody>
+									<Carousel>
+										{task.images.map((image: string) => {
+											return (
+												<Image
+													key={image}
+													src={image}
+													borderRadius="lg"
+													alt={image}
+												/>
+											);
+										})}
+									</Carousel>
+
+									<Stack mt="6" spacing="3">
+										<Heading size="md">{task.propertyName}</Heading>
+										<Text>{task.description}</Text>
+										<Text color="blue.600" fontSize="2xl">
+											{new Date(task.cleaningDate).toLocaleDateString("en-US")}
+										</Text>
+									</Stack>
+								</CardBody>
+							</Card>
+						</GridItem>
+					);
+				})}
+			</Grid>
+		</div>
 	);
 }
