@@ -29,14 +29,17 @@ export default function Home() {
 
 	const [tasks, setTasks] = useState([]);
 
-	axios
-		.get("http://localhost:3000/tasks")
-		.then(function (response) {
-			setTasks(response.data);
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
+	const getAllTasks = () =>
+		axios
+			.get("http://localhost:3000/tasks")
+			.then(function (response) {
+				setTasks(response.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
+	getAllTasks();
 
 	if (!tasks.length) {
 		return (
@@ -52,6 +55,14 @@ export default function Home() {
 
 	return (
 		<div className="p-10">
+			<Button
+				color="teal"
+				onClick={() => getAllTasks()}
+				marginRight={5}
+				marginBottom={5}>
+				Refresh Task List
+			</Button>
+
 			<Button
 				color="teal"
 				onClick={() => router.push("/add-task")}
