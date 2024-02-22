@@ -8,7 +8,7 @@ export class TasksService {
   private readonly tasks: Task[] = [];
 
   create(createTaskDto: CreateTaskDto) {
-    let task: Task;
+    const task = new Task();
     task.id = uuidv4();
     const { propertyName, description, images } = createTaskDto;
     task.description = description;
